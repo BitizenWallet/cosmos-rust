@@ -118,3 +118,8 @@ impl MsgProto for proto::cosmwasm::wasm::v1::MsgUpdateAdmin {
 impl MsgProto for proto::cosmwasm::wasm::v1::MsgClearAdmin {
     const TYPE_URL: &'static str = "/cosmwasm.wasm.v1.MsgClearAdmin";
 }
+
+#[cfg(feature = "cosmwasm")]
+impl MsgProto for proto::terra::wasm::v1beta1::MsgExecuteContract {
+    const TYPE_URL: &'static str = "/terra.wasm.v1beta1.MsgExecuteContract";
+}

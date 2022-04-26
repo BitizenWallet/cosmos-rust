@@ -227,6 +227,18 @@ pub mod cosmwasm {
     }
 }
 
+/// Terra CosmWasm protobuf definitions.
+#[cfg(feature = "cosmwasm")]
+#[cfg_attr(docsrs, doc(cfg(feature = "cosmwasm")))]
+pub mod terra {
+    /// Messages and services handling CosmWasm.
+    pub mod wasm {
+        pub mod v1beta1 {
+            include!("prost/terra.wasm.v1beta1.rs");
+        }
+    }
+}
+
 /// IBC protobuf definitions.
 pub mod ibc {
     /// IBC applications.

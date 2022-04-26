@@ -363,3 +363,53 @@ impl From<&MsgClearAdmin> for proto::cosmwasm::wasm::v1::MsgClearAdmin {
         }
     }
 }
+
+/// TerraMsgExecuteContract submits the given message data to a smart contract
+#[derive(Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
+pub struct TerraMsgExecuteContract {
+    /// Sender is the that actor that signed the messages
+    pub sender: AccountId,
+
+    /// Contract is the address of the smart contract
+    pub contract: AccountId,
+
+    /// Msg json encoded message to be passed to the contract
+    pub execute_msg: Vec<u8>,
+
+    /// Funds coins that are transferred to the contract on execution
+    pub coins: Vec<Coin>,
+}
+
+impl Msg for TerraMsgExecuteContract {
+    type Proto = proto::terra::wasm::v1beta1::MsgExecuteContract;
+}
+
+impl TryFrom<proto::terra::wasm::v1beta1::MsgExecuteContract> for TerraMsgExecuteContract {
+    type Error = ErrorReport;
+
+    fn try_from(
+        proto: proto::terra::wasm::v1beta1::MsgExecuteContract,
+    ) -> Result<TerraMsgExecuteContract> {
+        Ok(TerraMsgExecuteContract {
+            sender: proto.sender.parse()?,
+            contract: proto.contract.parse()?,
+            execute_msg: proto.execute_msg.into_iter().map(Into::into).collect(),
+            coins: proto
+                .coins
+                .iter()
+                .map(TryFrom::try_from)
+                .collect::<Result<_, _>>()?,
+        })
+    }
+}
+
+impl From<TerraMsgExecuteContract> for proto::terra::wasm::v1beta1::MsgExecuteContract {
+    fn from(msg: TerraMsgExecuteContract) -> proto::terra::wasm::v1beta1::MsgExecuteContract {
+        proto::terra::wasm::v1beta1::MsgExecuteContract {
+            sender: msg.sender.to_string(),
+            contract: msg.contract.to_string(),
+            execute_msg: msg.execute_msg,
+            coins: msg.coins.iter().map(Into::into).collect(),
+        }
+    }
+}
