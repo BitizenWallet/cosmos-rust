@@ -227,10 +227,18 @@ pub mod cosmwasm {
     }
 }
 
-/// Terra CosmWasm protobuf definitions.
-#[cfg(feature = "cosmwasm")]
-#[cfg_attr(docsrs, doc(cfg(feature = "cosmwasm")))]
+/// Terra protobuf definitions.
 pub mod terra {
+    /// Messages and services handling market
+    pub mod market {
+        pub mod v1beta1 {
+            include!("prost/terra.market.v1beta1.rs");
+        }
+    }
+
+    /// Terra CosmWasm protobuf definitions.
+    #[cfg(feature = "cosmwasm")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "cosmwasm")))]
     /// Messages and services handling CosmWasm.
     pub mod wasm {
         pub mod v1beta1 {

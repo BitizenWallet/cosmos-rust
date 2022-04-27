@@ -9,6 +9,7 @@
 pub mod bank;
 pub mod crypto;
 pub mod distribution;
+pub mod market;
 pub mod staking;
 pub mod tx;
 

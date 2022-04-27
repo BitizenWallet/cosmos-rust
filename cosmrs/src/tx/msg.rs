@@ -119,6 +119,14 @@ impl MsgProto for proto::cosmwasm::wasm::v1::MsgClearAdmin {
     const TYPE_URL: &'static str = "/cosmwasm.wasm.v1.MsgClearAdmin";
 }
 
+impl MsgProto for proto::terra::market::v1beta1::MsgSwap {
+    const TYPE_URL: &'static str = "/terra.market.v1beta1.MsgSwap";
+}
+
+impl MsgProto for proto::terra::market::v1beta1::MsgSwapSend {
+    const TYPE_URL: &'static str = "/terra.market.v1beta1.MsgSwapSend";
+}
+
 #[cfg(feature = "cosmwasm")]
 impl MsgProto for proto::terra::wasm::v1beta1::MsgExecuteContract {
     const TYPE_URL: &'static str = "/terra.wasm.v1beta1.MsgExecuteContract";
